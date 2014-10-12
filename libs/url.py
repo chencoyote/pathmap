@@ -8,12 +8,13 @@ class Url(object):
 
     expr = r"(http[s]?)://([^:^/]+):?([^/]*)/"
 
-    def init(self, url):
+    def __init__(self, url):
         self._protocol = None
         self._host = None
         self._port = None
         self._domain = None
-        self.url = url if url[-1] == "/" else url + "/"
+        self._url = url if url[-1] == "/" else url + "/"
+        self.parser()
 
     @property
     def protocol(self):
@@ -30,6 +31,10 @@ class Url(object):
     @property
     def domain(self):
         return self._domain
+
+    @property
+    def url(self):
+        return self._url
 
     def parser(self):
         m = re.match(self.expr,self._url)
